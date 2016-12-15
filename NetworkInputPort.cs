@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net;
-using System.Net.Sockets;
 using System.Threading;
+using System.Net.Sockets;
 
 namespace NetworkNode
 {
-    class ClientInputPort
+    class NetworkInputPort
     {
         public int PortID { get; set; }
 
-        public ClientInputPort()
+        public NetworkInputPort()
         {
             Thread thread = new Thread(Listen); //tworzy nowy watek do obslugi nasluchiwania
-            thread.Name = "Client Input " + PortID.ToString();
+            thread.Name = "Network Input " + PortID.ToString();
             Settings.ClientInputPortsList.Add(thread);  //dodaje wątek do listy wszystkich wątków klienckich portow wejsciowych
             thread.Start(); //uruchamia watek skok do funkcji Listen
         }
@@ -30,12 +29,12 @@ namespace NetworkNode
             listener.Bind(Settings.GetIP());   //przypisuje mu punkt komunikacyjny
             listener.Listen(1); //rozpoczyna nasluch
 
-            while(true)
+            while (true)
             {
                 Socket handler = listener.Accept(); //tworzy nowy socket do obslugi przychodzacego polaczenia
 
                 //odbieranie danych
-                while(true)
+                while (true)
                 {
                     handler.Receive(buffer);
                     if (buffer.Length == 53)
@@ -43,7 +42,7 @@ namespace NetworkNode
                         break;
                     }
                 }
-                
+
 
             }
         }
