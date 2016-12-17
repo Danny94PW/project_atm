@@ -13,9 +13,9 @@ namespace Client_Node
     {
         public static readonly IPAddress ip_address = IPAddress.Parse("127.0.0.1");
         public static List<Thread> _thread_list_port_in = new List<Thread>();
-       // public static List<Thread> _thread_list_port_out = new List<Thread>();
+        public static List<ClientNode> client_nodes = new List<ClientNode>();
         public static int id_in_port_count = 0;
-       //public static int id_out_port_count = 0;
+       
 
     }   
 }

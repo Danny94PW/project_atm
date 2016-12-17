@@ -48,8 +48,8 @@ namespace Client_Node
             // petla zeby się powtarzało w  kółko
             while (true)
             {
-                // Console.Write("[" + in_port_number + "] " + "Waiting for a connection... \n");
-                //Thread.Sleep(1000);
+                Console.Write("[" + in_port_number + "] " + "Waiting for a connection... \n");
+                
 
                 TcpClient client = tcp_listener.AcceptTcpClient();
 
