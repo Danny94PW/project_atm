@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ClientNodes>
+  
+    
+      <wezel id="1" InPortNetwork="1" OutPortNetwork="2" InPortManager="3" OutPortMenager="4" ip="127.0.0.1"></wezel>
+      <wezel id="2" InPortNetwork="1" OutPortNetwork="2" InPortManager="3" OutPortMenager="4" ip="127.0.0.1"></wezel>
+      <wezel id="3" InPortNetwork="1" OutPortNetwork="2" InPortManager="3" OutPortMenager="4" ip="127.0.0.1"></wezel>
+      <wezel id="4" InPortNetwork="1" OutPortNetwork="2" InPortManager="3" OutPortMenager="4" ip="127.0.0.1"></wezel>
+
+</ClientNodes>
