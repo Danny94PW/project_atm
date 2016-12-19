@@ -9,29 +9,41 @@ using System.Net.Sockets;
 namespace NetworkNode
 {
     class NetworkOutputPort
-    {
-        public int portID;
+    { 
+        public int portID { get; set; }
+        private Socket output = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        public NetworkOutputPort()
+        public NetworkOutputPort(int routerid, int portid)
         {
-            Thread thread = new Thread(Send);
-            thread.Name = "Network Output " + portID.ToString();
-            Settings.ClientOutputPortsList.Add(thread);
-            thread.Start();
+            portID = portid;
+            Console.WriteLine("Utworzono port sieciowy wyjściowy " + portID.ToString());
+            //Thread thread = new Thread(Idle);
+            //thread.Name = "Network Output " + portID.ToString();
+            //Settings.ClientOutputPortsList.Add(thread);
+            //thread.Start();
         }
 
-        public void Send()
+        public void Idle()
         {
-            byte[] data = new byte[53];
-            Socket output = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);    //socket do laczenia sie z klientem
+            byte[] data = new byte[53]; //pojemnik na dane do wysłania
 
-            /**************************
-             * PRZYGOTOWANIE NAGLOWKA *
-             **************************/
+            data = Encoding.UTF8.GetBytes("blabla");    //do testów
 
-            output.Connect(Settings.GetIP());   //polaczenie z klientem TODO port
-            output.Send(data);    //wysylanie pakietu
+           // Socket output = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);    //socket do wysyłania danych
 
+            Send(20001, data);  //wysyłanie data przez socket output na dany port, normalnie port będzie przekazywany przez pole komutacyjne
+
+            //output.Connect(Settings.GetIP(port));   //polaczenie z klientem TODO port
+            //output.Send(data);    //wysylanie pakietu
+            //Console.WriteLine("Wyslano dane");
+        }
+
+        public void Send(int destport, byte[] data)
+        {
+            output.Connect(Settings.GetIP(destport));
+            output.Send(data);
+            Console.WriteLine("Wysłano dane z portu sieciowego " + portID.ToString());
+            //output.Shutdown(SocketShutdown.Both);
         }
     }
 }

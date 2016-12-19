@@ -11,24 +11,21 @@ namespace NetworkNode
 {
     class ClientOutputPort
     {
-        public int portID;
+        public int portID { get; set; }
+        private Socket output = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        public ClientOutputPort()
+        public ClientOutputPort(int routerid, int portid)
         {
-            Thread thread = new Thread(Send);
-            thread.Name = "Client Output " + portID.ToString();
-            Settings.ClientOutputPortsList.Add(thread);
-            thread.Start();
+            portID = portid;
+            Console.WriteLine("Utworzono kliencki port wyjściowy " + portID.ToString());
         }
 
-        public void Send()
+        public void Send(int destport, byte[] data)
         {
-            byte[] data = new byte[53];
-            Socket output = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);    //socket do laczenia sie z klientem
-
-            output.Connect(Settings.GetIP());   //polaczenie z klientem TODO port
-            output.Send(data);    //wysylanie bufora
-
+            output.Connect(Settings.GetIP(destport));
+            output.Send(data);
+            Console.WriteLine("Wysłano dane z portu klienckiego " + portID.ToString());
+            output.Shutdown(SocketShutdown.Both);
         }
     }
 }

@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace NetworkNode
 {
-    static class SwitchingField
+    class NetworkNode
     {
-        public static void Switching(byte[] data)
+        public int nodes_num;
+
+        public NetworkNode()
         {
-            Settings.networkoutput[0].Send(20001, data);
+            
         }
     }
 }
